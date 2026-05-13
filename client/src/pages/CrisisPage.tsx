@@ -47,7 +47,7 @@ export default function CrisisPage() {
           <h3>Shore Crisis Management is Here for You</h3>
           <p>Our team is available 24 hours a day. If you're experiencing a mental health crisis, reach out to us.</p>
           <p style={{ marginTop: "var(--space-3)" }}>
-            <strong>Email:</strong> Shorecrisis35@gmail.com<br />
+            <strong>Email:</strong> admin@shorecrisismgmt.com<br />
             <strong>Address:</strong> 227 W 4th St, Suite LL102, Charlotte, NC 28202
           </p>
         </div>

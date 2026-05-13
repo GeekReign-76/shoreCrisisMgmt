@@ -40,7 +40,7 @@ export default function InsurancePage() {
               options.
             </p>
             <p style={{ marginTop: "var(--space-4)" }}>
-              <strong>Contact us:</strong> Shorecrisis35@gmail.com
+              <strong>Contact us:</strong> admin@shorecrisismgmt.com
             </p>
           </div>
         </div>

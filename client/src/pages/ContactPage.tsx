@@ -129,7 +129,7 @@ export default function ContactPage() {
               <h3>Get In Touch</h3>
               <div className="contact-item">
                 <strong>Email</strong>
-                <p>Shorecrisis35@gmail.com</p>
+                <p>admin@shorecrisismgmt.com</p>
               </div>
               <div className="contact-item">
                 <strong>Address</strong>

@@ -25,7 +25,7 @@ export default function Footer() {
             <h4>Contact</h4>
             <p>227 W 4th St, Suite LL102</p>
             <p>Charlotte, NC 28202</p>
-            <p>Shorecrisis35@gmail.com</p>
+            <p>admin@shorecrisismgmt.com</p>
             <p>Available 24 Hours</p>
           </div>
         </div>

@@ -3,7 +3,7 @@ import pool from "../config/db.js";
 
 if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
   webpush.setVapidDetails(
-    process.env.VAPID_EMAIL || "mailto:Shorecrisis35@gmail.com",
+    process.env.VAPID_EMAIL || "mailto:admin@shorecrisismgmt.com",
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
   );
