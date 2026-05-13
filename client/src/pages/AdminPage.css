@@ -1,0 +1,141 @@
+.admin-page {
+  padding: var(--space-8) 0;
+}
+
+.admin-page h1 {
+  margin-bottom: var(--space-8);
+}
+
+.admin-message {
+  color: var(--color-success);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+}
+
+.admin-section {
+  margin-bottom: var(--space-10);
+}
+
+.admin-section h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-desc {
+  color: var(--color-text-light);
+  margin-bottom: var(--space-6);
+  max-width: 700px;
+}
+
+.test-mode-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.test-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.test-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-light);
+}
+
+.status-dot.active {
+  background: var(--color-success);
+}
+
+.test-counts {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.test-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.seed-result {
+  background: var(--color-bg);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.seed-result h4 {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.seed-stats {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.rate-form {
+  margin-bottom: var(--space-6);
+}
+
+.rate-row {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.rate-row .form-group {
+  flex: 1;
+  min-width: 150px;
+  margin-bottom: 0;
+}
+
+.rates-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rate-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+}
+
+.rate-card.default {
+  border-left: 3px solid var(--color-success);
+}
+
+.rate-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.rate-amount {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+}
+
+.rate-actions {
+  display: flex;
+  gap: var(--space-2);
+}

@@ -1,0 +1,644 @@
+
+		<head>
+			<style type="text/css" media="screen">
+				body,html{font-family:var(--markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, "Ubuntu", "Droid Sans", sans-serif);font-size:var(--markdown-font-size,14px);padding:0 26px;line-height:var(--markdown-line-height,22px);word-wrap:break-word}body{padding-top:1em}h1,h2,h3,h4,h5,h6,ol,p,pre,ul{margin-top:0}h2,h3,h4,h5,h6{font-weight:400;margin-bottom:.2em}img{max-width:100%;max-height:100%}a{text-decoration:none}a:hover{text-decoration:underline}a:focus,input:focus,select:focus,textarea:focus{outline:1px solid -webkit-focus-ring-color;outline-offset:-1px}p{margin-bottom:.7em}ol,ul{margin-bottom:.7em}hr{border:0;height:2px;border-bottom:2px solid}h1{padding-bottom:.3em;line-height:1.2;border-bottom-width:1px;border-bottom-style:solid;font-weight:400}table{border-collapse:collapse}th{text-align:left;border-bottom:1px solid}td,th{padding:5px 10px}table>tbody>tr+tr>td{border-top:1px solid}blockquote{margin:0 7px 0 5px;padding:0 16px 0 10px;border-left-width:5px;border-left-style:solid}code{font-family:var(--vscode-editor-font-family, "SF Mono", Monaco, Menlo, Consolas, "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace);font-size:1em;line-height:1.357em}body.wordWrap pre{white-space:pre-wrap}pre.hljs code>div,pre:not(.hljs){padding:16px;border-radius:3px;overflow:auto}pre code{color:var(--vscode-editor-foreground);tab-size:4}
+			</style>
+		</head>
+		<body>
+			<h1 id="shore-crisis-management--how-this-works">Shore Crisis Management — How This Works</h1>
+<p>A complete feature walkthrough of the web application.</p>
+<hr>
+<h2 id="system-overview">System Overview</h2>
+<p>Shore Crisis Management is a full-stack web application for Tyrin Miller&#39;s mental health practice in Charlotte, NC. It serves four user types:</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>What They See</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Public</strong></td>
+<td>Anyone on the internet</td>
+<td>Homepage, Services, Insurance, Crisis Resources, Contact/Intake form</td>
+</tr>
+<tr>
+<td><strong>Client</strong></td>
+<td>Registered patients</td>
+<td>Dashboard, appointment booking, messaging, profile with message history</td>
+</tr>
+<tr>
+<td><strong>Owner</strong></td>
+<td>Tyrin Miller</td>
+<td>Dashboard, clients directory, appointment detail modals, messaging, clinical profiles, reports, settings</td>
+</tr>
+<tr>
+<td><strong>Admin</strong></td>
+<td>Tian Reid</td>
+<td>Everything the owner sees + admin panel, test mode controls, rate settings</td>
+</tr>
+</tbody></table>
+<h3 id="global-ui-features">Global UI Features</h3>
+<p><strong>Dark Mode</strong> — A moon/sun toggle in the navbar switches between light and dark themes. The preference is saved in localStorage and persists across sessions. On first visit, the app respects the user&#39;s system preference (<code>prefers-color-scheme</code>). Every element — cards, forms, modals, charts, badges, messages, tables, hero sections — has dark-mode-specific styling.</p>
+<p><strong>Breadcrumb Navigation</strong> — A contextual breadcrumb trail appears below the navbar on every page (except Home, Login, and Register). Breadcrumbs are role-aware:</p>
+<ul>
+<li>Owner sees: <code>Home / Dashboard / Clients / Client Profile</code></li>
+<li>Client sees: <code>Home / My Dashboard / Messages</code></li>
+<li>Admin sees: <code>Home / Admin</code></li>
+</ul>
+<p>Each segment is a clickable link back to that level. This solves navigation dead-ends — particularly in Messages and Profile views where there was no obvious way back.</p>
+<p><strong>Responsive Design</strong> — The app is fully responsive across three breakpoints:</p>
+<ul>
+<li><strong>1024px</strong> (tablet landscape) — tighter spacing, smaller nav text</li>
+<li><strong>768px</strong> (tablet portrait / large phone) — hamburger menu with slide-out drawer, single-column layouts, stacked forms, mobile chat view with back button, bottom-sheet modals</li>
+<li><strong>480px</strong> (small phone) — logo text hidden (icon only), full-width drawer, single-column stats</li>
+</ul>
+<p><strong>PWA</strong> — The app is installable on mobile and desktop via &quot;Add to Home Screen.&quot; The service worker provides offline caching (network-first with cache fallback) and handles push notification display.</p>
+<hr>
+<h2 id="public-facing-website">Public-Facing Website</h2>
+<h3 id="homepage-">Homepage (<code>/</code>)</h3>
+<ul>
+<li><strong>Crisis banner</strong> at the top — always visible, links to 911 and 988</li>
+<li><strong>Hero section</strong> with the Shore Crisis Management logo, tagline (&quot;Helping You Weather the Waves of Life&quot;), and mission statement</li>
+<li><strong>Services preview</strong> — 5 service cards with brief descriptions</li>
+<li><strong>Insurance accepted</strong> — Aetna, BlueCross BlueShield, Carolina Complete, Vaya Health, Alliance</li>
+<li><strong>Call-to-action</strong> — &quot;Book a Consultation&quot; button</li>
+<li><strong>Footer</strong> — address (227 W 4th St, Suite LL102, Charlotte, NC 28202), email, hours (24hrs), nav links</li>
+</ul>
+<h3 id="services-services">Services (<code>/services</code>)</h3>
+<ul>
+<li>Detailed descriptions of all 5 services: Individual Therapy, Child &amp; Adolescent, Psychiatric Evaluation, Psychological Testing, Crisis Intervention</li>
+<li>11 specialties displayed as tags: Anxiety, Depression, Trauma/PTSD, Grief &amp; Loss, Stress Management, Bipolar Disorder, Anger Management, Life Transitions, Addiction/Recovery, LGBTQ+ Issues, Sleep Issues</li>
+<li>Age groups served: Adolescents (13–17), Young Adults (18–25), Adults (26–64), Seniors (65+)</li>
+</ul>
+<h3 id="insurance-insurance">Insurance (<code>/insurance</code>)</h3>
+<ul>
+<li>Card for each accepted provider with description</li>
+<li>Coverage guidance and contact info</li>
+</ul>
+<h3 id="crisis-resources-crisis">Crisis Resources (<code>/crisis</code>)</h3>
+<ul>
+<li>Emergency 911 call button (red, prominent)</li>
+<li>National hotlines: 988 Lifeline, Crisis Text Line, SAMHSA, Veterans Crisis Line, Trevor Project, Domestic Violence Hotline</li>
+<li>Each with contact method and description</li>
+<li>Shore Crisis Management direct contact info</li>
+</ul>
+<h3 id="contact--intake-form-contact">Contact / Intake Form (<code>/contact</code>)</h3>
+<ul>
+<li><strong>HIPAA-aware intake form</strong> collecting:<ul>
+<li>Full name (required)</li>
+<li>Date of birth</li>
+<li>Mental health concern / diagnosis</li>
+<li>Insurance provider (dropdown of accepted + Other + None)</li>
+<li>Preferred contact method (phone/email/text)</li>
+<li>Contact value (required)</li>
+<li>Reason for reaching out</li>
+</ul>
+</li>
+<li>HIPAA disclaimer displayed above the form</li>
+<li>On submit:<ol>
+<li>Data saved to <code>contact_submissions</code> table</li>
+<li>Email sent to owner with all form details</li>
+<li>Real-time socket notification to owner dashboard</li>
+<li>Confirmation message shown to user</li>
+</ol>
+</li>
+<li>Sidebar shows practice contact info (email, address, hours)</li>
+</ul>
+<hr>
+<h2 id="authentication">Authentication</h2>
+<h3 id="how-login-works">How Login Works</h3>
+<ol>
+<li>User enters email + password at <code>/login</code></li>
+<li>Server verifies credentials with bcrypt (10 salt rounds)</li>
+<li>Returns:<ul>
+<li><strong>Access token</strong> (JWT, 15-min expiry) — stored in React state (memory only, never localStorage)</li>
+<li><strong>Refresh token</strong> (random UUID, 7-day expiry) — stored in httpOnly secure cookie + <code>refresh_tokens</code> table</li>
+</ul>
+</li>
+<li>User redirected based on role: admin → <code>/admin</code>, owner → <code>/dashboard</code>, client → <code>/client</code></li>
+</ol>
+<h3 id="token-refresh">Token Refresh</h3>
+<ul>
+<li>Axios interceptor catches any 401 response (except <code>/auth/refresh</code> and <code>/auth/login</code> to prevent loops)</li>
+<li>Automatically calls <code>/api/auth/refresh</code> with the httpOnly cookie</li>
+<li>Gets a new access token + rotated refresh token (old token deleted from DB)</li>
+<li>Retries the original failed request transparently</li>
+<li>If refresh fails → user stays on current page in unauthenticated state</li>
+</ul>
+<h3 id="session-restoration">Session Restoration</h3>
+<ul>
+<li>On page load/refresh, the AuthContext attempts a token refresh via a direct axios call (bypassing the interceptor)</li>
+<li>If successful, the user is seamlessly restored to their session</li>
+<li>If not, the app loads in public/unauthenticated mode</li>
+</ul>
+<h3 id="registration-register">Registration (<code>/register</code>)</h3>
+<ul>
+<li>Clients self-register with: full name, email, phone (optional), password (min 8 chars), confirm password</li>
+<li>Owner and admin accounts are seeded on first server start (not registerable through the UI)</li>
+</ul>
+<hr>
+<h2 id="client-features">Client Features</h2>
+<h3 id="client-dashboard-client">Client Dashboard (<code>/client</code>)</h3>
+<ul>
+<li><strong>Stats row</strong>: upcoming appointment count, quick links to Book Appointment and Messages</li>
+<li><strong>Upcoming appointments</strong> with status badges (pending, confirmed)<ul>
+<li>Owner response and suggested alternative times shown when applicable</li>
+<li>Cancel button on each appointment</li>
+</ul>
+</li>
+<li><strong>Past appointments</strong> section (dimmed, showing completed/cancelled/denied)</li>
+<li>Real-time updates via Socket.io when owner approves/denies/completes</li>
+</ul>
+<h3 id="booking-booking">Booking (<code>/booking</code>)</h3>
+<p>Two modes, toggled with tabs:</p>
+<p><strong>Slot-Based Booking:</strong></p>
+<ol>
+<li>Client picks a date from a date picker</li>
+<li>App fetches open slots from <code>/api/availability/open?date=YYYY-MM-DD</code></li>
+<li>Slots are calculated by expanding the owner&#39;s weekly availability template and subtracting all confirmed/completed appointments</li>
+<li>Available slots displayed as clickable buttons (e.g., &quot;9:00 AM — 10:00 AM&quot;)</li>
+<li>Client clicks a slot → appointment auto-confirmed, redirected to dashboard</li>
+<li>Owner notified via socket + email</li>
+</ol>
+<p><strong>Request-Based Booking:</strong></p>
+<ol>
+<li>Client picks a custom date, start time, end time</li>
+<li>Adds optional notes explaining the request</li>
+<li>Submits → appointment created with status <code>pending</code></li>
+<li>Owner notified via socket + email</li>
+<li>Owner approves, denies, or suggests alternative time from their dashboard</li>
+<li>Client notified of decision via socket + email</li>
+</ol>
+<h3 id="messaging-messages">Messaging (<code>/messages</code>)</h3>
+<ul>
+<li><strong>Desktop</strong>: two-panel layout — conversation list on left, chat window on right</li>
+<li><strong>Mobile</strong>: full-screen conversation list → tap to open chat → back arrow to return to list</li>
+<li>Real-time message delivery via Socket.io</li>
+<li>Typing indicators (&quot;Typing...&quot; shown when other party is typing, clears after 1.5s of inactivity)</li>
+<li>Read receipts (&quot;Read&quot; shown on sent messages once the other party opens the conversation)</li>
+<li>Unread count badges on conversation list items</li>
+<li>Message history loaded via REST (paginated, last 50), new messages via WebSocket</li>
+</ul>
+<h3 id="profile-my-profile">Profile (<code>/my-profile</code>)</h3>
+<ul>
+<li>View/edit personal info: name, phone, DOB, insurance, emergency contact, address</li>
+<li><strong>Message history</strong> — full conversation thread with the owner displayed in chat-bubble layout (client messages on right, owner messages on left) with timestamps and sender names</li>
+<li>&quot;Open Full Chat&quot; button links to the Messages page</li>
+<li>Client cannot see clinical notes, session notes, or billing data (owner-only)</li>
+</ul>
+<hr>
+<h2 id="owner-features">Owner Features</h2>
+<h3 id="owner-dashboard-dashboard">Owner Dashboard (<code>/dashboard</code>)</h3>
+<ul>
+<li><strong>Stats row</strong>: Today&#39;s appointments, Pending requests, Upcoming, Completed, View Messages link</li>
+<li><strong>Pending Requests section</strong>: shows request-based bookings waiting for approval<ul>
+<li><strong>Approve</strong> → status set to <code>confirmed</code>, client notified via socket + email</li>
+<li><strong>Deny</strong> → status set to <code>denied</code>, optional message sent to client</li>
+</ul>
+</li>
+<li><strong>Today&#39;s Schedule</strong>: all confirmed appointments for today with Mark Complete and Cancel buttons</li>
+<li><strong>Upcoming Appointments</strong>: next 10 confirmed appointments with same actions</li>
+<li>All sections update in real-time via Socket.io</li>
+<li><strong>Every appointment card is clickable</strong> — opens the Appointment Detail Modal</li>
+</ul>
+<h3 id="appointment-detail-modal">Appointment Detail Modal</h3>
+<p>Clicking any appointment opens a full detail modal with:</p>
+<p><strong>Schedule section</strong>:</p>
+<ul>
+<li>Date, time range, duration, booking type (slot/request)</li>
+<li>Client&#39;s notes if any</li>
+</ul>
+<p><strong>Client section</strong>:</p>
+<ul>
+<li>Avatar, name, email, phone, DOB, insurance, emergency contact</li>
+<li><strong>&quot;Full Profile&quot; button</strong> — links directly to <code>/profile/:id</code></li>
+<li><strong>Clinical Summary</strong> (if clinical profile exists):<ul>
+<li>Diagnosis codes (ICD-10)</li>
+<li>Diagnosis notes</li>
+<li>Treatment goals</li>
+<li>Current medications</li>
+</ul>
+</li>
+</ul>
+<p><strong>Session Notes</strong>:</p>
+<ul>
+<li>View existing notes for this appointment</li>
+<li>Textarea to add new session notes (saved immediately)</li>
+</ul>
+<p><strong>Billing</strong> (for confirmed/completed appointments):</p>
+<ul>
+<li>Editable fee field</li>
+<li>Payment status dropdown (pending/paid)</li>
+<li>Update button</li>
+</ul>
+<p><strong>Actions</strong>:</p>
+<ul>
+<li>Pending: Approve / Deny (with optional response message)</li>
+<li>Confirmed: Mark Complete / Cancel</li>
+<li>Completed: shows completion status and fee</li>
+</ul>
+<h3 id="how-mark-complete-works">How &quot;Mark Complete&quot; Works</h3>
+<ol>
+<li>Owner clicks &quot;Mark Complete&quot; on a confirmed appointment (from dashboard or detail modal)</li>
+<li>Server automatically calculates:<ul>
+<li><strong>Duration</strong>: from scheduled start_time to end_time (e.g., 60 minutes)</li>
+<li><strong>Fee</strong>: duration × default hourly rate from <code>rate_settings</code> (e.g., 60 min × $150/hr = $150.00)</li>
+<li><strong>Insurance billed</strong>: auto-filled from the client&#39;s <code>insurance_provider</code> field</li>
+<li><strong>Payment status</strong>: set to <code>pending</code></li>
+</ul>
+</li>
+<li>Appointment status → <code>completed</code></li>
+<li>Fee, duration, and insurance stored on the appointment record</li>
+<li>This data automatically flows into Revenue reports</li>
+<li>Owner can manually adjust the fee and payment status in the detail modal if needed</li>
+</ol>
+<h3 id="clients-directory-clients">Clients Directory (<code>/clients</code>)</h3>
+<ul>
+<li>Searchable list of all registered clients</li>
+<li>Search filters by name, email, or insurance provider</li>
+<li>Each client card shows:<ul>
+<li>Avatar (first initial), name, email, phone</li>
+<li>Insurance provider badge</li>
+<li>Appointment stats (total, confirmed, last visit date)</li>
+<li>Arrow indicating clickability</li>
+</ul>
+</li>
+<li>Click any client → navigates to their full profile</li>
+</ul>
+<h3 id="client-profiles-profileuserid">Client Profiles (<code>/profile/:userId</code>)</h3>
+<p>Owner can view any client&#39;s full profile with sections:</p>
+<p><strong>Personal Info</strong> (also editable by client):</p>
+<ul>
+<li>Name, phone, DOB, insurance, emergency contact, address</li>
+<li>Edit mode with form fields, save button</li>
+</ul>
+<p><strong>Clinical Profile</strong> (owner-only, editable):</p>
+<ul>
+<li>Diagnosis codes (ICD-10, e.g., F41.1, F32.1)</li>
+<li>Diagnosis notes</li>
+<li>Treatment goals</li>
+<li>Current medications</li>
+<li>General clinical notes</li>
+</ul>
+<p><strong>Session Notes</strong> (owner-only):</p>
+<ul>
+<li>Add new notes linked to specific appointments (dropdown selector)</li>
+<li>Notes displayed in reverse chronological order with appointment date</li>
+<li>Each note has a left-border accent and timestamp</li>
+</ul>
+<p><strong>Messages</strong>:</p>
+<ul>
+<li>Full conversation thread with the client displayed in chat-bubble layout</li>
+<li>Owner messages on right (blue), client messages on left (gray)</li>
+<li>Sender name and timestamp on each message</li>
+<li>&quot;Open Full Chat&quot; button to jump to the Messages page</li>
+<li>Scrollable container (max 500px height)</li>
+</ul>
+<p><strong>Appointment History</strong> (owner-only):</p>
+<ul>
+<li>Full table with: date, status (badge), booking type, fee, insurance billed, payment status (badge)</li>
+<li>Sortable by date (newest first)</li>
+</ul>
+<h3 id="messaging-messages-1">Messaging (<code>/messages</code>)</h3>
+<ul>
+<li><strong>Conversation list</strong> on the left: all clients who have messaged, sorted by most recent, with unread count badges</li>
+<li><strong>Chat window</strong> on the right: full message history with selected client</li>
+<li>Messages marked as read automatically when conversation is opened</li>
+<li>If the client is offline when a message is sent:<ul>
+<li><strong>Push notification</strong> sent via Web Push API (if subscribed)</li>
+<li><strong>Email notification</strong> sent via Nodemailer with branded template</li>
+</ul>
+</li>
+<li><strong>Mobile</strong>: conversation list and chat are separate full-screen views with a back arrow to navigate between them</li>
+</ul>
+<h3 id="settings-settings">Settings (<code>/settings</code>)</h3>
+<ul>
+<li><strong>Availability Editor</strong>: Configure weekly recurring time slots<ul>
+<li>Pick day of week, start time, end time, slot duration (30/45/60/90 min)</li>
+<li>Add multiple slots per day (e.g., Monday 9:00–12:00 and 1:00–5:00)</li>
+<li>Delete individual slots</li>
+<li>Grouped display by day of week</li>
+<li>These slots power the client-facing booking calendar</li>
+</ul>
+</li>
+</ul>
+<h3 id="reports-reports">Reports (<code>/reports</code>)</h3>
+<p>Three tabs with a <strong>Data Mode Toggle</strong> (All | Real | Test):</p>
+<p><strong>Appointment Analytics:</strong></p>
+<ul>
+<li>Stats: today, this week, total, confirmed, completed, pending, denied, cancelled</li>
+<li><strong>Monthly volume bar chart</strong> (last 12 months, blue bars)</li>
+<li><strong>Busiest days</strong> horizontal bar chart (ranked by appointment count)</li>
+<li><strong>Busiest hours</strong> horizontal bar chart (ranked by appointment count)</li>
+</ul>
+<p><strong>Client Activity:</strong></p>
+<ul>
+<li>Table of all clients with:<ul>
+<li>Name, email</li>
+<li>Member since date</li>
+<li>Total/confirmed/cancelled appointments</li>
+<li>Message count</li>
+<li>Total fees</li>
+<li>Last visit date</li>
+<li>&quot;View&quot; link to full client profile</li>
+</ul>
+</li>
+</ul>
+<p><strong>Revenue:</strong></p>
+<ul>
+<li>Stats: total revenue, paid revenue, pending revenue, paid session count</li>
+<li><strong>Monthly revenue bar chart</strong> (gold/amber bars)</li>
+<li><strong>Revenue by insurance provider</strong> breakdown with horizontal bars</li>
+</ul>
+<p><strong>Data Mode Toggle:</strong></p>
+<ul>
+<li><strong>All</strong> — shows both real and test data combined</li>
+<li><strong>Real</strong> — filters to only real client/appointment data (test data hidden)</li>
+<li><strong>Test</strong> — filters to only seeded test data (toggle highlighted in amber)</li>
+</ul>
+<hr>
+<h2 id="admin-features">Admin Features</h2>
+<h3 id="admin-panel-admin">Admin Panel (<code>/admin</code>)</h3>
+<p>Only accessible to the admin role (Tian Reid).</p>
+<p><strong>Test Mode:</strong></p>
+<ul>
+<li><strong>Generate Test Data</strong> button seeds:<ul>
+<li>8 realistic test clients (Sarah Johnson, Marcus Williams, Aisha Patel, James Rodriguez, Keisha Thompson, David Chen, Maria Santos, Tyler Brooks)</li>
+<li>Each with: name, email, phone, DOB, insurance provider</li>
+<li>3–7 appointments per client spread over 60 days (mix of completed, confirmed, pending, cancelled)</li>
+<li>Clinical profiles with real ICD-10 codes, diagnosis notes, treatment goals, medications</li>
+<li>Session notes with realistic clinical content (grounding techniques, medication adjustments, EMDR, etc.)</li>
+<li>Full multi-message conversations per client (5–9 messages each, covering intake, progress updates, medication questions, crisis check-ins, scheduling)</li>
+<li>3 unread messages from different clients</li>
+<li>3 contact form submissions from prospective clients</li>
+<li>A default rate setting ($150/hr) if none exists</li>
+</ul>
+</li>
+<li>All test data tagged with <code>is_test_data = TRUE</code></li>
+<li><strong>Clear Test Data</strong> button removes all tagged records cleanly</li>
+<li><strong>Status indicator</strong> shows green dot and counts when test data is loaded</li>
+</ul>
+<p><strong>Rate Settings:</strong></p>
+<ul>
+<li>Add hourly rates with a name (e.g., &quot;Standard Session&quot;, &quot;Extended Session&quot;) and $/hr amount</li>
+<li>Set one rate as the <strong>default</strong> — this is used for auto-revenue calculation when appointments are marked complete</li>
+<li>Default rate highlighted with green accent</li>
+<li>Edit or delete existing rates</li>
+</ul>
+<p>The admin can also access all owner pages (Dashboard, Clients, Messages, Settings, Profiles, Reports).</p>
+<hr>
+<h2 id="real-time-features-socketio">Real-Time Features (Socket.io)</h2>
+<h3 id="connection">Connection</h3>
+<ul>
+<li>WebSocket connection established on login</li>
+<li>JWT access token sent in the auth handshake</li>
+<li>Server middleware validates the token before allowing connection</li>
+<li>Each user joins a private room (<code>user:&lt;id&gt;</code>)</li>
+<li>Connection tracked server-side (Map of userId → Set of socketIds) to determine online/offline status</li>
+<li>Reconnects automatically on token refresh</li>
+</ul>
+<h3 id="events">Events</h3>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Direction</th>
+<th>Payload</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>message:send</code></td>
+<td>Client → Server</td>
+<td><code>{ receiverId, content }</code></td>
+<td>Send a chat message</td>
+</tr>
+<tr>
+<td><code>message:new</code></td>
+<td>Server → Both</td>
+<td><code>{ id, senderId, senderName, content, createdAt }</code></td>
+<td>Deliver message to sender + receiver</td>
+</tr>
+<tr>
+<td><code>message:read</code></td>
+<td>Client → Server</td>
+<td><code>{ senderId }</code></td>
+<td>Mark all messages from sender as read</td>
+</tr>
+<tr>
+<td><code>message:read-ack</code></td>
+<td>Server → Client</td>
+<td><code>{ readerId }</code></td>
+<td>Tell sender their messages were read</td>
+</tr>
+<tr>
+<td><code>typing:start</code></td>
+<td>Client → Server</td>
+<td><code>{ receiverId }</code></td>
+<td>User started typing</td>
+</tr>
+<tr>
+<td><code>typing:stop</code></td>
+<td>Client → Server</td>
+<td><code>{ receiverId }</code></td>
+<td>User stopped typing (or 1.5s timeout)</td>
+</tr>
+<tr>
+<td><code>typing:indicator</code></td>
+<td>Server → Client</td>
+<td><code>{ senderId, typing }</code></td>
+<td>Show/hide typing indicator</td>
+</tr>
+<tr>
+<td><code>appointment:updated</code></td>
+<td>Server → Client</td>
+<td><code>{ appointment }</code></td>
+<td>Appointment status changed</td>
+</tr>
+<tr>
+<td><code>contact:new</code></td>
+<td>Server → Owner</td>
+<td><code>{ fullName, reason }</code></td>
+<td>New intake form submitted</td>
+</tr>
+</tbody></table>
+<h3 id="offline-notifications">Offline Notifications</h3>
+<p>When a message or appointment update targets a user who has no active socket connection:</p>
+<ol>
+<li><strong>Web Push notification</strong> sent via the Web Push API (if they have a saved subscription)</li>
+<li><strong>Email notification</strong> sent via Nodemailer with branded HTML template</li>
+</ol>
+<hr>
+<h2 id="notifications">Notifications</h2>
+<h3 id="browser-push-web-push-api">Browser Push (Web Push API)</h3>
+<ul>
+<li>Service worker (<code>sw.js</code>) registered on page load</li>
+<li>Users prompted to allow notifications via browser&#39;s native permission dialog</li>
+<li>Subscription (endpoint + keys) stored in <code>push_subscriptions</code> table</li>
+<li>Push sent when: new message to offline user, appointment status change</li>
+<li>Notification displays: title, body, Shore logo icon</li>
+<li>Notification click opens the app to the relevant page (<code>/messages</code>, <code>/client</code>, etc.)</li>
+<li>Expired subscriptions (410 Gone) automatically cleaned from the database</li>
+</ul>
+<h3 id="email-nodemailer">Email (Nodemailer)</h3>
+<ul>
+<li>Branded HTML email template with:<ul>
+<li>Blue header with &quot;Shore Crisis Management&quot; title</li>
+<li>Gold tagline</li>
+<li>Content body on light background</li>
+<li>Footer with practice address</li>
+</ul>
+</li>
+<li>Triggered on: appointment booked/approved/denied/cancelled, new message (to offline user), contact form submission</li>
+<li>Fire-and-forget — never blocks the HTTP response</li>
+<li>Development: Ethereal fake SMTP inbox (no real emails sent)</li>
+<li>Production: plug in any SMTP provider (Gmail, SendGrid, Mailgun, etc.)</li>
+</ul>
+<hr>
+<h2 id="pwa-progressive-web-app">PWA (Progressive Web App)</h2>
+<ul>
+<li><code>manifest.json</code> with app name, icons, theme color, display mode</li>
+<li>Enables &quot;Add to Home Screen&quot; on iOS Safari, Android Chrome, and desktop browsers</li>
+<li>Service worker provides:<ul>
+<li><strong>Offline caching</strong> — network-first strategy for all non-API requests, falls back to cached version</li>
+<li><strong>Push notification handling</strong> — receives push events and displays system notifications</li>
+<li><strong>App shell</strong> cached on install for instant load</li>
+</ul>
+</li>
+<li>Theme color: <code>#3A7CB8</code> (brand blue)</li>
+<li>Works on localhost in development; requires HTTPS in production</li>
+</ul>
+<hr>
+<h2 id="dark-mode">Dark Mode</h2>
+<ul>
+<li>Toggle button (moon/sun icon) in the navbar, visible on all screen sizes</li>
+<li>Sets <code>data-theme=&quot;dark&quot;</code> on the <code>&lt;html&gt;</code> element</li>
+<li>All colors swap via CSS variable overrides in <code>darkmode.css</code></li>
+<li>Covers every UI element: navbar, cards, forms, inputs, buttons, badges, modals, charts, tables, messages, hero sections, footer, breadcrumbs</li>
+<li>Preference persisted in <code>localStorage</code> as <code>theme: &quot;dark&quot;</code> or <code>theme: &quot;light&quot;</code></li>
+<li>On first visit with no stored preference, respects <code>prefers-color-scheme</code> media query</li>
+</ul>
+<hr>
+<h2 id="breadcrumb-navigation">Breadcrumb Navigation</h2>
+<ul>
+<li>Rendered below the navbar on every page except Home, Login, and Register</li>
+<li>Shows hierarchical path with clickable links: <code>Home / Dashboard / Clients / Client Profile</code></li>
+<li>Role-aware — owner breadcrumbs route through Dashboard, client breadcrumbs route through My Dashboard</li>
+<li>Specific paths:<ul>
+<li>Messages: <code>Home / Dashboard / Messages</code> (owner) or <code>Home / My Dashboard / Messages</code> (client)</li>
+<li>Client Profile: <code>Home / Clients / Client Profile</code> (owner)</li>
+<li>My Profile: <code>Home / My Dashboard / My Profile</code> (client)</li>
+<li>Booking: <code>Home / My Dashboard / Book Appointment</code></li>
+<li>Reports: <code>Home / Dashboard / Reports</code></li>
+<li>Settings: <code>Home / Dashboard / Settings</code></li>
+</ul>
+</li>
+<li>On mobile, breadcrumbs use smaller text and wrap naturally</li>
+</ul>
+<hr>
+<h2 id="logging">Logging</h2>
+<ul>
+<li><strong>Engine</strong>: pino (structured JSON logger)</li>
+<li><strong>Dev mode</strong>: pretty-printed with colors and timestamps via pino-pretty</li>
+<li><strong>Production</strong>: raw JSON output (pipe through <code>npx pino-pretty</code> for readability)</li>
+<li><strong>Log levels</strong>: debug, info, warn, error (configurable via <code>LOG_LEVEL</code> env var)</li>
+<li><strong>Request logging middleware</strong>: every HTTP request logged with method, URL, status code, response duration (ms), client IP, and authenticated user ID</li>
+<li><strong>Console redirect</strong>: all <code>console.log</code>, <code>console.error</code>, <code>console.warn</code> calls throughout the codebase are piped through pino automatically</li>
+<li><strong>Socket events</strong>: connection/disconnection logged with user ID and active socket count</li>
+<li><strong>Errors</strong>: all route errors logged with full error context before returning 500</li>
+</ul>
+<hr>
+<h2 id="database-schema">Database Schema</h2>
+<p>11 tables across 3 migrations:</p>
+<p><strong>Migration 001 — Core:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>users</code></td>
+<td>All accounts (owner, admin, client) with role, profile fields</td>
+</tr>
+<tr>
+<td><code>refresh_tokens</code></td>
+<td>JWT refresh token storage with expiry for rotation</td>
+</tr>
+<tr>
+<td><code>availability_slots</code></td>
+<td>Owner&#39;s recurring weekly schedule template</td>
+</tr>
+<tr>
+<td><code>appointments</code></td>
+<td>All bookings with status, type, billing fields, test flag</td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td>Chat messages between users with read status</td>
+</tr>
+<tr>
+<td><code>push_subscriptions</code></td>
+<td>Web Push API endpoint + keys per user</td>
+</tr>
+<tr>
+<td><code>contact_submissions</code></td>
+<td>Public intake form submissions</td>
+</tr>
+</tbody></table>
+<p><strong>Migration 002 — Profiles &amp; Reporting:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>clinical_profiles</code></td>
+<td>Per-client clinical data: diagnosis, goals, meds (owner-only)</td>
+</tr>
+<tr>
+<td><code>session_notes</code></td>
+<td>Per-appointment notes linked to client (owner-only)</td>
+</tr>
+<tr>
+<td><code>client_files</code></td>
+<td>File attachments on client profiles</td>
+</tr>
+</tbody></table>
+<p><strong>Migration 003 — Admin &amp; Rates:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>rate_settings</code></td>
+<td>Configurable hourly rates for auto-billing</td>
+</tr>
+</tbody></table>
+<p>Additional columns added by migrations 002–003: user profile fields (DOB, emergency contact, insurance, address), appointment billing fields (fee, actual_duration_min, insurance_billed, payment_status), and <code>is_test_data</code> flags on all data tables.</p>
+<hr>
+<h2 id="security-considerations">Security Considerations</h2>
+<ul>
+<li><strong>Passwords</strong>: bcrypt with 10 salt rounds</li>
+<li><strong>JWT</strong>: short-lived access tokens (15 min) stored in memory only, httpOnly secure cookie refresh tokens (7 days)</li>
+<li><strong>Refresh token rotation</strong>: old token deleted from database on each refresh, preventing replay attacks</li>
+<li><strong>Interceptor safety</strong>: auth refresh and login requests skip the 401 interceptor to prevent infinite loops</li>
+<li><strong>Role-based access</strong>: <code>authenticate</code> middleware verifies JWT on every protected route; <code>requireRole</code> middleware checks <code>req.user.role</code> against allowed roles</li>
+<li><strong>Admin elevation</strong>: admin role can access all owner routes; enforced in both backend middleware and frontend ProtectedRoute</li>
+<li><strong>CORS</strong>: restricted to the configured client origin</li>
+<li><strong>Input validation</strong>: required fields checked server-side on all endpoints</li>
+<li><strong>Test data isolation</strong>: <code>is_test_data</code> boolean flag on all data tables; reports support filtering by mode (all/real/test)</li>
+<li><strong>HIPAA notice</strong>: contact form displays a confidentiality disclaimer before submission</li>
+<li><strong>No sensitive data in JWT</strong>: payload contains only userId, email, and role</li>
+<li><strong>Cookie security</strong>: refresh token cookie uses <code>httpOnly</code>, <code>secure</code> (in production), and <code>sameSite: strict</code></li>
+</ul>
+
+		</body>

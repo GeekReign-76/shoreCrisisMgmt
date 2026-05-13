@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: shore_crisis
+      POSTGRES_USER: shore_user
+      POSTGRES_PASSWORD: shore_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shore_user -d shore_crisis"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build: ./server
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://shore_user:shore_pass@postgres:5432/shore_crisis
+      CLIENT_URL: http://localhost,http://192.168.1.106,http://192.168.1.106:80
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  client:
+    build: ./client
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+
+volumes:
+  pgdata:

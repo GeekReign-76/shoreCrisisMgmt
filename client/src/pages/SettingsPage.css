@@ -1,0 +1,54 @@
+.settings-page {
+  padding: var(--space-8) 0;
+}
+
+.availability-form {
+  margin-bottom: var(--space-6);
+}
+
+.avail-row {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.avail-row .form-group {
+  flex: 1;
+  min-width: 120px;
+  margin-bottom: 0;
+}
+
+.slots-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.day-group h3 {
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-2);
+}
+
+.slot-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-1);
+}
+
+.slot-row span:first-child {
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+.slot-duration {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  flex: 1;
+}

@@ -1,0 +1,33 @@
+.providers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-6);
+}
+
+.provider-card {
+  border-top: 3px solid var(--color-accent);
+  text-align: center;
+}
+
+.provider-card h3 {
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-2);
+}
+
+.provider-card p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.info-section {
+  background: var(--color-bg-white);
+}
+
+.info-section h3 {
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-3);
+}
+
+.info-section p {
+  line-height: 1.7;
+}

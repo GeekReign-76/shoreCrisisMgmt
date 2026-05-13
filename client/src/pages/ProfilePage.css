@@ -1,0 +1,214 @@
+.profile-page {
+  padding: var(--space-8) 0;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.profile-header h1 {
+  margin-bottom: var(--space-1);
+}
+
+.profile-header p {
+  color: var(--color-text-light);
+}
+
+.profile-section {
+  margin-bottom: var(--space-8);
+}
+
+.profile-section h2 {
+  margin-bottom: var(--space-4);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.info-item label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-1);
+}
+
+.info-item span {
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+
+.clinical-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.clinical-grid label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+
+.clinical-grid p {
+  white-space: pre-wrap;
+}
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.note-card {
+  border-left: 3px solid var(--color-primary);
+}
+
+.note-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.note-card p {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.data-table th {
+  text-align: left;
+  padding: var(--space-3);
+  border-bottom: 2px solid var(--color-border);
+  color: var(--color-text-light);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-table td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.data-table tr:hover {
+  background: var(--color-bg);
+}
+
+/* Profile Messages */
+.profile-messages {
+  padding: 0;
+  overflow: hidden;
+}
+
+.profile-messages-list {
+  max-height: 500px;
+  overflow-y: auto;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.profile-msg {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  max-width: 85%;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.profile-msg.from-client {
+  align-self: flex-start;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-bottom-left-radius: var(--radius-sm);
+}
+
+.profile-msg.from-owner {
+  align-self: flex-end;
+  background: var(--color-primary-dark);
+  color: white;
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+.profile-msg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-1);
+}
+
+.profile-msg-sender {
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+}
+
+.profile-msg.from-client .profile-msg-sender {
+  color: var(--color-primary-dark);
+}
+
+.profile-msg.from-owner .profile-msg-sender {
+  color: var(--color-accent-light);
+}
+
+.profile-msg-time {
+  font-size: 10px;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.profile-msg p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .form-grid, .info-grid { grid-template-columns: 1fr; }
+  .profile-header { flex-direction: column; text-align: center; }
+  .data-table { font-size: var(--font-size-xs); }
+}

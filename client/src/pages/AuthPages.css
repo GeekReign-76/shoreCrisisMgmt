@@ -1,0 +1,31 @@
+.auth-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-logo {
+  display: block;
+  height: 60px;
+  margin: 0 auto var(--space-4);
+}
+
+.auth-card h2 {
+  text-align: center;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-6);
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}

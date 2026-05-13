@@ -1,0 +1,342 @@
+/* ════════════════════════════════════════════
+   DARK MODE — CSS Variable Overrides
+   ════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --color-primary: #6BB8ED;
+  --color-primary-dark: #4A9AD8;
+  --color-primary-darker: #3A7CB8;
+  --color-accent: #D4B06A;
+  --color-accent-light: #E0C48A;
+  --color-bg: #0F172A;
+  --color-bg-white: #1E293B;
+  --color-text-dark: #F1F5F9;
+  --color-text-body: #CBD5E1;
+  --color-text-light: #94A3B8;
+  --color-border: #334155;
+  --color-success: #4ADE80;
+  --color-warning: #FBBF24;
+  --color-danger: #F87171;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar */
+[data-theme="dark"] .navbar {
+  background: #1E293B;
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .navbar-title {
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .hamburger-line {
+  background: var(--color-text-dark);
+}
+
+/* Form inputs */
+[data-theme="dark"] .form-input {
+  background-color: #1a2536;
+  border-color: #3d4f65;
+  color: #F1F5F9;
+}
+
+[data-theme="dark"] .form-input::placeholder {
+  color: #64748B;
+}
+
+[data-theme="dark"] .form-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(107, 184, 237, 0.15);
+}
+
+[data-theme="dark"] select.form-input {
+  background-color: #1a2536;
+  color: #F1F5F9;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394A3B8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+}
+
+[data-theme="dark"] select.form-input option {
+  background: #1a2536;
+  color: #F1F5F9;
+}
+
+/* Cards */
+[data-theme="dark"] .card {
+  background: #1E293B;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+[data-theme="dark"] .btn-outline {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .btn-outline:hover {
+  background: var(--color-primary);
+  color: #0F172A;
+}
+
+/* Badges */
+[data-theme="dark"] .badge-pending { background: #422006; color: #FBBF24; }
+[data-theme="dark"] .badge-confirmed { background: #052E16; color: #4ADE80; }
+[data-theme="dark"] .badge-completed { background: #1E3A5F; color: #6BB8ED; }
+[data-theme="dark"] .badge-denied { background: #450A0A; color: #F87171; }
+[data-theme="dark"] .badge-cancelled { background: #1E293B; color: #94A3B8; }
+[data-theme="dark"] .badge-paid { background: #052E16; color: #4ADE80; }
+
+/* Hero */
+[data-theme="dark"] .hero {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #1a3a5c 100%);
+}
+
+/* Page header */
+[data-theme="dark"] .page-header {
+  background: linear-gradient(135deg, #0F172A, #1a3a5c);
+}
+
+[data-theme="dark"] .crisis-header {
+  background: linear-gradient(135deg, #450A0A, #7F1D1D) !important;
+}
+
+/* CTA section */
+[data-theme="dark"] .cta-section {
+  background: linear-gradient(135deg, #1a3a5c, #0F172A);
+}
+
+/* Footer */
+[data-theme="dark"] .footer {
+  background: #020617;
+}
+
+[data-theme="dark"] .footer-bottom {
+  border-top-color: #1E293B;
+}
+
+/* Messages */
+[data-theme="dark"] .conversation-list {
+  background: #1E293B;
+}
+
+[data-theme="dark"] .convo-item:hover {
+  background: #334155;
+}
+
+[data-theme="dark"] .convo-item.active {
+  background: rgba(107, 184, 237, 0.1);
+}
+
+[data-theme="dark"] .chat-header {
+  background: #1E293B;
+}
+
+[data-theme="dark"] .chat-input {
+  background: #1E293B;
+}
+
+[data-theme="dark"] .message-bubble.received {
+  background: #334155;
+  border-color: #475569;
+  color: var(--color-text-dark);
+}
+
+[data-theme="dark"] .message-bubble.sent {
+  background: var(--color-primary-darker);
+}
+
+/* Profile messages */
+[data-theme="dark"] .profile-msg.from-client {
+  background: #334155;
+  border-color: #475569;
+  color: var(--color-text-dark);
+}
+
+[data-theme="dark"] .profile-msg.from-client .profile-msg-sender {
+  color: var(--color-primary);
+}
+
+/* Insurance cards */
+[data-theme="dark"] .insurance-section {
+  background: #1E293B;
+}
+
+[data-theme="dark"] .insurance-card {
+  border-color: #334155;
+  color: var(--color-primary);
+}
+
+/* Specialty tags */
+[data-theme="dark"] .specialty-tag {
+  background: #334155;
+  border-color: #475569;
+  color: var(--color-primary);
+}
+
+/* Data tables */
+[data-theme="dark"] .data-table th {
+  border-bottom-color: #475569;
+}
+
+[data-theme="dark"] .data-table td {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .data-table tr:hover {
+  background: #334155;
+}
+
+/* Appointment card hover */
+[data-theme="dark"] .appointment-card.clickable:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary), 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Client card hover */
+[data-theme="dark"] .client-card-link:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary), 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Client insurance tag */
+[data-theme="dark"] .client-insurance-tag {
+  background: #334155;
+  color: var(--color-primary);
+}
+
+/* Modal */
+[data-theme="dark"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .appt-detail-modal {
+  background: #1E293B;
+}
+
+[data-theme="dark"] .client-card {
+  background: #0F172A;
+}
+
+[data-theme="dark"] .clinical-snapshot {
+  border-top-color: #334155;
+}
+
+[data-theme="dark"] .note-entry {
+  background: #0F172A;
+}
+
+/* Bar charts */
+[data-theme="dark"] .bar-chart {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .rank-bar-bg {
+  background: #334155;
+}
+
+/* Slot buttons */
+[data-theme="dark"] .slot-btn {
+  background: #334155;
+  border-color: #475569;
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .slot-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #0F172A;
+}
+
+/* Tabs */
+[data-theme="dark"] .tab {
+  background: #1E293B;
+  border-color: #334155;
+  color: var(--color-text-body);
+}
+
+[data-theme="dark"] .tab:hover:not(.active) {
+  border-color: var(--color-primary);
+}
+
+/* Seed result */
+[data-theme="dark"] .seed-result {
+  background: #0F172A;
+}
+
+/* Status dot */
+[data-theme="dark"] .status-dot {
+  background: #475569;
+}
+
+/* Rate card */
+[data-theme="dark"] .rate-card.default {
+  border-left-color: var(--color-success);
+}
+
+/* Slot rows in settings */
+[data-theme="dark"] .slot-row {
+  background: #0F172A;
+  border-color: #334155;
+}
+
+/* HIPAA notice */
+[data-theme="dark"] .hipaa-notice {
+  background: #0F172A;
+  border-left-color: var(--color-primary);
+}
+
+/* Form error */
+[data-theme="dark"] .form-error {
+  background: #450A0A;
+  color: #F87171;
+}
+
+/* Toggle buttons */
+[data-theme="dark"] .data-mode-toggle {
+  background: #0F172A;
+  border-color: #334155;
+}
+
+/* Nav drawer mobile */
+[data-theme="dark"] .navbar-links {
+  background: #1E293B;
+}
+
+[data-theme="dark"] .navbar-links a {
+  border-bottom-color: #334155;
+}
+
+/* Crisis banner */
+[data-theme="dark"] .crisis-banner {
+  background: #7F1D1D;
+}
+
+/* Emergency card */
+[data-theme="dark"] .emergency-card {
+  border-color: #F87171;
+}
+
+/* Specialties section */
+[data-theme="dark"] .specialties-section {
+  background: #0F172A;
+}
+
+/* Info section */
+[data-theme="dark"] .info-section {
+  background: #0F172A;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: var(--space-1);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
